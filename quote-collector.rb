@@ -1,8 +1,6 @@
 require_relative 'multilinguist'
 
-require 'pry'
-
-class QuoteCollector
+class QuoteCollector < Multilinguist
 
   @@quote_collection = []
 
@@ -18,7 +16,7 @@ class QuoteCollector
 
   def self.browse_quote
     random_quote = @@quote_collection.sample
-    return say_in_local_language(random_quote)
+    return random_quote
   end
 
   def self.collection
@@ -28,8 +26,20 @@ class QuoteCollector
   def quote
     @quote
   end
+
+  def quote=(quote)
+    @quote = quote
+    return @quote
+  end
+
 end
 
 quote1 = QuoteCollector.create("To be, or not to be? That is the question.")
+quote2 = QuoteCollector.create("Hello world!")
+quote3 = QuoteCollector.create("Life is beautiful")
 
-puts QuoteCollector.collection.inspect
+# puts quote1.quote
+
+random_quote = QuoteCollector.browse_quote
+random_quote.travel_to("Bulgaria")
+puts random_quote.say_in_local_language(random_quote.quote)
